@@ -16,7 +16,9 @@ app.use(morgan('tiny'));
 app.set("view engine", "ejs");
 
 // Load assets
+app.use(express.static(__dirname + '/assets'));
 
+// Routes
 app.get('/', (req, res) => {
     res.send('Server is running')
 })
