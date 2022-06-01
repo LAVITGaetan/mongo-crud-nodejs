@@ -1,0 +1,15 @@
+<%= api_uri %>
+
+<script>
+    const api_uri = '<%= api_uri%>';
+    const array = fetch(api_uri)
+    .then(result => {
+        return result.json()
+    })
+    .then(data => {
+        return data;
+    });
+    
+
+
+</script>
