@@ -1,15 +1,102 @@
-<%= api_uri %>
+<link rel="stylesheet" href="css/style.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<div id="modal">
+    <h2 id="modal-title">Ajouter une voiture</h2>
+    <div id="modal-close">X</div>
+    <div class="form-group">
+        <label class="modal-label" for="label">Nom de la voiture</label>
+        <input type="text" class="modal-field" id="label">
+    </div>
+    <div class="form-group">
+        <label class="modal-label" for="marque">Marque</label>
+        <input type="text" class="modal-field" id="marque">
+    </div>
+    <div class="form-group">
+        <label class="modal-label" for="kilometers">Kilométrage</label>
+        <input type="text" class="modal-field" id="kilometers">
+    </div>
+
+    <div id="modal-action" onclick="addCar()">Créer</div>
+</div>
+<!-- Add a new car -->
+<button id="button-add">Add a new car</button>
+<div class="flex">
+    <% cars.forEach(c=> {%>
+        <div class="card">
+            <h1 class="card-title">
+                <%= c.label %>
+            </h1>
+            <p class="card-row"><span class="card-label">Marque : </span>
+                <%= c.marque %>
+            </p>
+            <p class="card-row"><span class="card-label">Kilométrage : </span>
+                <%= c.kilometers %> Km
+            </p>
+            <p class="card-row"><span class="card-label">Status : </span>
+                <%= c.isActive %>
+            </p>
+            <div class="card-delete" onclick="deleteCar('<%= c._id%>')">X</div>
+            <div class="card-update">Modifier</div>
+        </div>
+        <%}); %>
+</div>
 
 <script>
-    const api_uri = '<%= api_uri%>';
-    const array = fetch(api_uri)
-    .then(result => {
-        return result.json()
+    let modal = document.getElementById('modal');
+    document.getElementById('modal-close').addEventListener('click', () => {
+        modal.style.display = "none";
     })
-    .then(data => {
-        return data;
-    });
-    
 
+    let addButton = document.getElementById('button-add');
+    addButton.addEventListener('click', () => {
+        modal.style.display = "block";
+    })
 
+    function deleteCar(carId) {
+        fetch(`http://localhost:4400/api/cars/${carId}`, { method: 'DELETE' })
+            .then(function (response) {
+                return response.json()
+            })
+            .then(data => console.log(data))
+        setTimeout(() => {
+            document.location.reload();
+        }, 500);
+    }
+
+    function addCar() {
+        let labelField = document.getElementById('label').value;
+        let marqueField = document.getElementById('marque').value;
+        let kilometersField = document.getElementById('kilometers').value;
+        if (labelField.length < 3) {
+            alert('Label field must be completed with more than 3 characters');
+            return;
+        }
+        if (marqueField.length < 3) {
+            alert('Marque field must be completed with more than 3 characters');
+            return;
+        }
+        if (kilometersField.length < 1) {
+            alert('Kilometers field must be completed with more than 3 characters');
+            return;
+        }
+        fetch(`http://localhost:4400/api/cars`, {
+            method: 'POST',
+            body: JSON.stringify({
+                label: labelField,
+                marque: marqueField,
+                kilometers: kilometersField
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+            .then(response => {
+                return response.json()
+            })
+            .then(data => console.log(data))
+        setTimeout(() => {
+            document.location.reload();
+        }, 500);
+    }
 </script>
