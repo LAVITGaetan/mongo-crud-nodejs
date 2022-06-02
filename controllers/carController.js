@@ -46,7 +46,7 @@ exports.update = async (req, res) => {
     if (!req.body.marque) return res.send('Marque field must be completed')
     if (!req.body.kilometers) return res.send('Kilometers field must be completed')
     try {
-        const updatedCar = await Car.updateOne({_id: req.params.carId}, {$set : {label: req.body.label, kilometers: req.body.kilometers}})
+        const updatedCar = await Car.updateOne({_id: req.params.carId}, {$set : {label: req.body.label, marque: req.body.marque, kilometers: req.body.kilometers}})
         res.json(updatedCar)
     }catch(err) {
         res.json({message : err})

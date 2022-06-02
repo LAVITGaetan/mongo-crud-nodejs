@@ -1,8 +1,7 @@
 <!-- CSS -->
-<link rel="stylesheet" href="css/style.css">
+<link href="css/style.css">
 <!-- GOOGLE FONT -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-
 
 <style>
     * {
@@ -17,6 +16,10 @@
 
         --colorDark: #082830;
     }
+
+    body {
+    font-family: Montserrat;
+}
 
     .title-main {
         font-size: 30px;
@@ -105,5 +108,48 @@
         <input type="text" class="modal-field" id="kilometers" value="<%= car.kilometers  %>">
     </div>
 
-    <div id="modal-action" onclick="addCar()">Créer</div>
+    <div id="modal-action">Créer</div>
 </div>
+
+<script>
+
+document.getElementById('modal-action').addEventListener('click', () => {
+
+    // Retrieve From data
+    let labelField = document.getElementById('label').value;
+    let marqueField = document.getElementById('marque').value;
+    let kilometersField = document.getElementById('kilometers').value;
+    let carId = '<%= car._id%>';
+    if(label.length < 3) {
+        alert('label field must be completed with more than 2 characters')
+        return;
+    }
+    if(marque.length < 3) {
+        alert('marque field must be completed with more than 2 characters')
+        return;
+    }
+    if(kilometers.length < 1) {
+        alert('kilometers field must be completed')
+        return;
+    }
+    console.log(carId);
+    fetch(`http://localhost:4400/api/cars/${carId}`, {
+        method : 'PATCH',
+        body: JSON.stringify({
+                label: labelField,
+                marque: marqueField,
+                kilometers: kilometersField
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+    })
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+    })
+})
+
+</script>
