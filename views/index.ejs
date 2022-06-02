@@ -43,7 +43,7 @@
                 <%= c.isActive %>
             </p>
             <div class="card-delete" onclick="deleteCar('<%= c._id%>')">X</div>
-            <div class="card-update">Modifier</div>
+            <a class="card-update" href='/cars/<%= c._id%>'>Modifier</a>
         </div>
         <%}); %>
 </div>

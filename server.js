@@ -41,6 +41,8 @@ app.get('/', (req, res) => {
 // Client Route
 app.get('/cars', services.show)
 
+app.get('/cars/:id', services.find)
+
 // API Route
 app.use('/api/cars', carsRoute);
 

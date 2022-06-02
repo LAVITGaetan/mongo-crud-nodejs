@@ -1,0 +1,109 @@
+<!-- CSS -->
+<link rel="stylesheet" href="css/style.css">
+<!-- GOOGLE FONT -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+
+
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    :root {
+        --colorMain: #38a5c0;
+        --colorWarning: #082830;
+
+        --colorDark: #082830;
+    }
+
+    .title-main {
+        font-size: 30px;
+        padding: 2.5em;
+        text-align: center;
+        font-weight: bold;
+        color: var(--colorDark);
+    }
+
+    #modal {
+        width: 50vw;
+        height: fit-content;
+        padding: 25px;
+        position: fixed;
+        top: 25vh;
+        left: 25vw;
+        background-color: #ffffff;
+        z-index: 1000;
+        box-shadow: 5px 5px 20px 2px #00000010;
+        border-radius: 5px;
+    }
+
+    #modal-title {
+        font-size: 25px;
+        text-align: center;
+        font-weight: bold;
+        color: var(--colorDark);
+        padding-bottom: 25px;
+        border-bottom: 5px solid #f1f3f5;
+    }
+
+    .modal-field {
+        height: 40px;
+        outline: none;
+        background-color: #f1f3f5;
+        box-shadow: 2px 2px 10px 1px #00000010;
+        border: 2px solid #fff;
+        border-radius: 5px;
+        padding: 10px 20px;
+    }
+
+    .modal-label {
+        font-size: 17px;
+        color: var(--colorDark);
+        padding: .5em;
+        margin-bottom: .5em;
+        font-weight: 600;
+    }
+
+    .form-group {
+        margin: 1em 10%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #modal-action {
+        border-radius: 5px;
+        color: #fff;
+        background-color: var(--colorMain);
+        width: 50%;
+        display: block;
+        margin: 50px auto 0 auto;
+        border: none;
+        outline: none;
+        text-align: center;
+        padding: 10px 20px;
+        font-size: 16px;
+        letter-spacing: 0.05em;
+        font-weight: 600;
+        cursor: pointer;
+    }
+</style>
+<h1 class="title-main">Mettre à jour une voiture</h1>
+<div id="modal">
+    <h2 id="modal-title">Détails de la voiture</h2>
+    <div class="form-group">
+        <label class="modal-label" for="label">Nom de la voiture</label>
+        <input type="text" class="modal-field" id="label" value="<%= car.label %>">
+    </div>
+    <div class="form-group">
+        <label class="modal-label" for="marque">Marque</label>
+        <input type="text" class="modal-field" id="marque" value="<%= car.marque %>">
+    </div>
+    <div class="form-group">
+        <label class="modal-label" for="kilometers">Kilométrage</label>
+        <input type="text" class="modal-field" id="kilometers" value="<%= car.kilometers  %>">
+    </div>
+
+    <div id="modal-action" onclick="addCar()">Créer</div>
+</div>
