@@ -44,5 +44,4 @@ app.get('/cars', services.show)
 // API Route
 app.use('/api/cars', carsRoute);
 
-
 app.listen(PORT, () => { console.log(`Application is running on http://localhost:${PORT}`); })
