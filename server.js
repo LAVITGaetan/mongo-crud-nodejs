@@ -34,9 +34,7 @@ mongoose.connect(process.env.MONGO_URI, () => {
 const carsRoute = require('./routes/cars');
 
 // Main Route
-app.get('/', (req, res) => {
-    res.send('Server is running');
-})
+app.get('/', services.index)
 
 // Client Route
 app.get('/cars', services.show)

@@ -9,7 +9,8 @@ addButton.addEventListener('click', () => {
 })
 
 function deleteCar(carId) {
-    fetch(`http://localhost:4400/api/cars/${carId}`, { method: 'DELETE' })
+    if(confirm('Supprimer la voiture ?')) {
+        fetch(`http://localhost:4400/api/cars/${carId}`, { method: 'DELETE' })
         .then(function (response) {
             return response.json()
         })
@@ -17,6 +18,8 @@ function deleteCar(carId) {
     setTimeout(() => {
         document.location.reload();
     }, 500);
+    }
+
 }
 
 function addCar() {

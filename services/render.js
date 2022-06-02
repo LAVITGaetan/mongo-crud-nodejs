@@ -1,5 +1,10 @@
 const axios = require('axios');
 
+// Redirect to cars on load
+exports.index = (req, res) => {
+    res.redirect('/cars');
+}
+
 // Render client view with all cars data
 exports.show = (req, res) => {
     axios.get('http://localhost:4400/api/cars')

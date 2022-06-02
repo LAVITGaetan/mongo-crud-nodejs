@@ -21,14 +21,15 @@ body {
 }
 
 #button-add {
-    width: 50%;
+    width: fit-content;
     display: block;
     margin: 2.5em auto;
-    background-color: var(--colorDark);
+    background-color: var(--colorMain);
+    border: 4px solid var(--colorDark);
     color: #fff;
     font-size: 25px;
     text-align: center;
-    padding: 50px;
+    padding: 25px 50px;
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
@@ -76,6 +77,7 @@ body {
     font-size: 20px;
     color: var(--colorDark);
     padding-bottom: 10px;
+    margin-right: 32px;
     margin-bottom: 20px;
     border-bottom: 2px solid #f1f3f5;
     font-weight: bold;
@@ -92,7 +94,7 @@ body {
 }
 
 .card-update {
-    border-radius: 5px;
+    border-radius: 50px;
     color: #fff;
     background-color: var(--colorMain);
     width: fit-content;
@@ -114,11 +116,12 @@ body {
     height: fit-content;
     padding: 25px;
     position: fixed;
-    top: 25vh;
+    top: 10vh;
     left: 25vw;
     background-color: #ffffff;
     z-index: 1000;
-    box-shadow:0 0 500px 50px #00000050;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);    border: 1px solid var(--colorDark);
+    border-radius: 10px;
     border-radius: 5px;
     display: none;
 }
@@ -149,7 +152,7 @@ body {
 }
 
 .modal-field {
-    height: 40px;
+    height: 50px;
     outline: none;
     background-color: #f1f3f5;
     box-shadow: 2px 2px 10px 1px #00000010;
@@ -173,7 +176,7 @@ body {
 }
 
 #modal-action {
-    border-radius: 5px;
+    border-radius: 50px;
     color: #fff;
     background-color: var(--colorMain);
     width: 50%;
@@ -182,7 +185,7 @@ body {
     border: none;
     outline: none;
     text-align: center;
-    padding: 10px 20px;
+    padding: 20px 40px;
     font-size: 16px;
     letter-spacing: 0.05em;
     font-weight: 600;
@@ -191,7 +194,7 @@ body {
 
 <!-- Hidden modal -->
 <div id="modal">
-    <h2 id="modal-title">Détails de la voiture</h2>
+    <h2 id="modal-title">Ajouter une voiture</h2>
     <div id="modal-close">X</div>
     <div class="form-group">
         <label class="modal-label" for="label">Nom de la voiture</label>
@@ -226,14 +229,13 @@ body {
                 <%= c.kilometers %> Km
             </p>
             <p class="card-row"><span class="card-label">Status : </span>
-                <%= c.isActive %>
+                <%=  c.isActive == true ? 'actif':'innactif' %>
             </p>
             <div class="card-delete" onclick="deleteCar('<%= c._id%>')">X</div>
             <a class="card-update" href='/cars/<%= c._id%>'>Modifier</a>
         </div>
         <%}); %>
 </div>
-
 
 <!-- Logic Javascript -->
 <script>
@@ -248,7 +250,8 @@ addButton.addEventListener('click', () => {
 })
 
 function deleteCar(carId) {
-    fetch(`http://localhost:4400/api/cars/${carId}`, { method: 'DELETE' })
+    if(confirm('Supprimer la voiture')) {
+        fetch(`http://localhost:4400/api/cars/${carId}`, { method: 'DELETE' })
         .then(function (response) {
             return response.json()
         })
@@ -256,6 +259,7 @@ function deleteCar(carId) {
     setTimeout(() => {
         document.location.reload();
     }, 500);
+}
 }
 
 function addCar() {
@@ -289,8 +293,7 @@ function addCar() {
             return response.json()
         })
         .then(data => console.log(data))
-    setTimeout(() => {
+        alert('Voiture crée avec succés')   
         document.location.reload();
-    }, 500);
 }
 </script>
